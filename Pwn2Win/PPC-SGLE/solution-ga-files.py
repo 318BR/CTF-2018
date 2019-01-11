@@ -32,6 +32,7 @@ statusscreen= pexpect.fdpexpect.fdspawn(fdttys)
 statusscreen.send(CLEAR)
 statusscreen.send('\n')
 
+
 class Logic(object):
     def __init__(self):
         self.currentStep = 0
@@ -69,6 +70,7 @@ class Logic(object):
             else:
                 self.directions[self.currentStep - i] = random.choice([LEFT, RIGHT])
 
+
 class Gravitron(object):
     def __init__(self):
         self.brain = Logic()
@@ -103,10 +105,6 @@ class Population(object):
     def printPopulation(self):
         for i in self.population:
             print i.score, i.printGravitron()
-
-    def randomPoints(self):
-        for i in self.population:
-            i.score = random.random() * 10.0
 
     def updatePopulationScore(self):
         score = 0
@@ -177,6 +175,7 @@ class Population(object):
         random.shuffle(self.population)
         self.generation = self.generation + 1
 
+
 class playGameThread(threading.Thread):
     def __init__(self, threadID, gravitronID, generation, directions, tty, lock):
         threading.Thread.__init__(self)
@@ -208,8 +207,7 @@ for generation in range(1, GENERATIONS + 1):
     print '--------------------------------------------------------------------'
     print 'Generation %03d - Execution' % (generation)
     print '--------------------------------------------------------------------'
-    # print games.printPopulation()
-    # games.randomPoints()
+
     for gravitron in range(0, POPULATIONSIZE):
         score = 0.0
 
@@ -258,8 +256,5 @@ Steps: %05d - Score: %3.02f' % (generation, gravitron + 1, POPULATIONSIZE,
     bestScore, _ = games.getBestScore()
     print 'Generation %03d - Best score: %03.2f - Total Score: %03.2f' \
             % (generation, bestScore, games.populationScore)
-    os.system('ps aux | grep -i sgle.py | awk \'{print $2}\' | \
-            xargs kill -9 2> /dev/null')
  
     games.naturalSelection()
-    # print games.printPopulation()
