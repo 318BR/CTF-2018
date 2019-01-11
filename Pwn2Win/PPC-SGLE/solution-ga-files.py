@@ -176,27 +176,7 @@ class Population(object):
         self.generation = self.generation + 1
 
 
-class playGameThread(threading.Thread):
-    def __init__(self, threadID, gravitronID, generation, directions, tty, lock):
-        threading.Thread.__init__(self)
-        self.threadID = threadID
-        self.gravitronID = gravitronID
-        self.generation = generation
-        self.directions = directions
-        self.tty = tty
-        self.logfile = 'content-' + str(threadID) + '-' + 'tty.log'
-        self.flagfile = 'flag-' + str(threadID) + '-'
-        self.currentStep = 0
-        self.lock = lock
-
-    def run(self):
-        if self._Thread__target is not None:
-            self._return = self._Thread__target(*self._Thread__args, **self._Thread__kwargs)
-        global scores
-
 games = Population(POPULATIONSIZE)
-scores = []
-lock = threading.Lock()
 resultscreen.send('')
 
 print '--------------------------------------------------------------------'
